@@ -21,7 +21,7 @@
         #filterSection {
             margin: 10px;
         }
-        input, button {
+        button {
             padding: 10px;
             margin: 5px;
             font-size: 16px;
@@ -70,7 +70,10 @@
     </header>
 
     <section id="filterSection">
-        <input type="text" id="searchInput" placeholder="Buscar matéria..." onkeyup="filterSchedules()">
+        <button onclick="filterSchedules(0)">Dia</button>
+        <button onclick="filterSchedules(1)">Horário</button>
+        <button onclick="filterSchedules(2)">Matéria</button>
+        <button onclick="filterSchedules(3)">Professor</button>
         <button onclick="showAll()">Mostrar Tudo</button>
     </section>
 
@@ -116,36 +119,27 @@
             });
         }
 
-        function filterSchedules() {
-            const filter = document.getElementById("searchInput").value.toLowerCase();
+        function filterSchedules(index) {
             const rows = document.getElementById("scheduleTable").getElementsByTagName("tr");
+            let selectedValue = null;
             
             for (let i = 1; i < rows.length; i++) {
-                let cells = rows[i].getElementsByTagName("td");
-                let match = false;
-                for (let j = 0; j < cells.length; j++) {
-                    if (cells[j].innerText.toLowerCase().includes(filter)) {
-                        match = true;
-                        break;
-                    }
-                }
-                rows[i].style.display = match ? "" : "none";
+                rows[i].style.display = "table-row";
             }
-        }
-
-        function filterBySubject(subject) {
-            const rows = document.getElementById("scheduleTable").getElementsByTagName("tr");
             
             for (let i = 1; i < rows.length; i++) {
-                let cell = rows[i].getElementsByTagName("td")[2];
-                rows[i].style.display = cell.innerText === subject ? "" : "none";
+                let cell = rows[i].getElementsByTagName("td")[index];
+                if (!selectedValue) {
+                    selectedValue = cell.innerText;
+                }
+                rows[i].style.display = cell.innerText === selectedValue ? "table-row" : "none";
             }
         }
 
         function showAll() {
             const rows = document.getElementById("scheduleTable").getElementsByTagName("tr");
             for (let i = 1; i < rows.length; i++) {
-                rows[i].style.display = "";
+                rows[i].style.display = "table-row";
             }
         }
 
