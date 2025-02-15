@@ -77,9 +77,9 @@
     <section id="scheduleList">
         <table border="1" id="scheduleTable">
             <tr>
-                <th>Matéria</th>
                 <th>Dia</th>
                 <th>Horário</th>
+                <th>Matéria</th>
                 <th>Professor</th>
                 <th>Ação</th>
             </tr>
@@ -88,16 +88,16 @@
 
     <script>
         const cronogramas = [
-            ["Organização e Estruturas de Transportes", "Segunda", "19h00", "Robson Andre Ferro"],
-            ["Processos de Organização da Logística Reversa", "Terça", "19h00", "Angeles Velasco Goncalves"],
-            ["Tecnologia da Informação Aplicada à Logística", "Quarta", "19h00", "Sergio Yoshiharu Hitomi"],
-            ["Organização e Estruturas de Transportes", "Quinta", "19h00", "Robson Andre Ferro"],
-            ["Procedimentos de Gestão da Qualidade Total", "Sexta", "19h00", "Vinicius Ferreira"],
-            ["Desenvolvimento do TCC em Logística", "Segunda", "21h04", "Robson Andre Ferro"],
-            ["Organização das Ações em Saúde e Segurança no Trabalho", "Terça", "21h04", "Robson Andre Ferro"],
-            ["Tecnologia da Informação Aplicada à Logística", "Quarta", "21h04", "Sergio Yoshiharu Hitomi"],
-            ["Estudos da Logística Internacional e Economia", "Quinta", "21h04", "Alexandre Carlos Silva"],
-            ["Legislação Tributária", "Sexta", "21h04", "Osiel Borges de Souza"]
+            ["Segunda", "19h00", "Organização e Estruturas de Transportes", "Robson Andre Ferro"],
+            ["Segunda", "21h04", "Desenvolvimento do TCC em Logística", "Robson Andre Ferro"],
+            ["Terça", "19h00", "Processos de Organização da Logística Reversa", "Angeles Velasco Goncalves"],
+            ["Terça", "21h04", "Organização das Ações em Saúde e Segurança no Trabalho", "Robson Andre Ferro"],
+            ["Quarta", "19h00", "Tecnologia da Informação Aplicada à Logística", "Sergio Yoshiharu Hitomi"],
+            ["Quarta", "21h04", "Tecnologia da Informação Aplicada à Logística", "Sergio Yoshiharu Hitomi"],
+            ["Quinta", "19h00", "Organização e Estruturas de Transportes", "Robson Andre Ferro"],
+            ["Quinta", "21h04", "Estudos da Logística Internacional e Economia", "Alexandre Carlos Silva"],
+            ["Sexta", "19h00", "Procedimentos de Gestão da Qualidade Total", "Vinicius Ferreira"],
+            ["Sexta", "21h04", "Legislação Tributária", "Osiel Borges de Souza"]
         ];
 
         function loadSchedules() {
@@ -111,7 +111,7 @@
                 let actionCell = row.insertCell(4);
                 let btn = document.createElement("button");
                 btn.innerText = "Ver Mais";
-                btn.onclick = () => filterBySubject(cronograma[0]);
+                btn.onclick = () => filterBySubject(cronograma[2]);
                 actionCell.appendChild(btn);
             });
         }
@@ -137,7 +137,7 @@
             const rows = document.getElementById("scheduleTable").getElementsByTagName("tr");
             
             for (let i = 1; i < rows.length; i++) {
-                let cell = rows[i].getElementsByTagName("td")[0];
+                let cell = rows[i].getElementsByTagName("td")[2];
                 rows[i].style.display = cell.innerText === subject ? "" : "none";
             }
         }
