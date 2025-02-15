@@ -8,7 +8,8 @@
 </head>
 <body>
     <header>
-        <h1>Cronogramas de Matérias</h1>
+        <h1>HORÁRIO DE AULA</h1>
+        <p>CLIQUE SOBRE O COMPONENTE PARA VISUALIZAR A PREVISÃO DE AULA</p>
     </header>
 
     <section id="filterSection">
@@ -21,6 +22,7 @@
             <tr>
                 <th>Matéria</th>
                 <th>Dia</th>
+                <th>Horário</th>
                 <th>Professor</th>
                 <th>Ação</th>
             </tr>
@@ -29,45 +31,27 @@
 
     <script>
         const cronogramas = [
-            ["1E Administração", "Segunda", "Leonardo"],
-            ["1E Administração", "Terça", "Regina Garcia"],
-            ["1E Administração", "Quarta", "Robson"],
-            ["1E Administração", "Quinta", "Osiel"],
-            ["1E Administração", "Sexta", "PE"],
-            ["2E Administração", "Segunda", "Alexandre"],
-            ["2E Administração", "Terça", "Angeles"],
-            ["2E Administração", "Quarta", "Ellen"],
-            ["2E Administração", "Quinta", "Pedro"],
-            ["2E Administração", "Sexta", "PTCC"],
-            ["3E Administração", "Segunda", "Alexandre"],
-            ["3E Administração", "Terça", "Angeles"],
-            ["3E Administração", "Quarta", "Pedro"],
-            ["3E Administração", "Quinta", "Elaine"],
-            ["1A Finanças", "Segunda", "Rodrigo"],
-            ["1A Finanças", "Terça", "Paulo"],
-            ["1A Finanças", "Quarta", "Angeles"],
-            ["1A Finanças", "Quinta", "Cesar"],
-            ["1A Finanças", "Sexta", "Eliziano"],
-            ["3A Logística", "Segunda", "Robson"],
-            ["3A Logística", "Terça", "Tácio"],
-            ["3A Logística", "Quarta", "Pedro"],
-            ["3A Logística", "Quinta", "OET"],
-            ["3A Logística", "Sexta", "PGGT"],
-            ["2A Marketing", "Segunda", "Cristiane Mota"],
-            ["2A Marketing", "Terça", "Alexandre"],
-            ["2A Marketing", "Quarta", "IAM"],
-            ["2A Marketing", "Quinta", "Robson"],
-            ["2A Marketing", "Sexta", "MKT ZA"]
+            ["Organização e Estruturas de Transportes", "Segunda", "19h00", "Robson Andre Ferro"],
+            ["Processos de Organização da Logística Reversa", "Terça", "19h00", "Angeles Velasco Goncalves"],
+            ["Tecnologia da Informação Aplicada à Logística", "Quarta", "19h00", "Sergio Yoshiharu Hitomi"],
+            ["Organização e Estruturas de Transportes", "Quinta", "19h00", "Robson Andre Ferro"],
+            ["Procedimentos de Gestão da Qualidade Total", "Sexta", "19h00", "Vinicius Ferreira"],
+            ["Desenvolvimento do TCC em Logística", "Segunda", "21h04", "Robson Andre Ferro"],
+            ["Organização das Ações em Saúde e Segurança no Trabalho", "Terça", "21h04", "Robson Andre Ferro"],
+            ["Tecnologia da Informação Aplicada à Logística", "Quarta", "21h04", "Sergio Yoshiharu Hitomi"],
+            ["Estudos da Logística Internacional e Economia", "Quinta", "21h04", "Alexandre Carlos Silva"],
+            ["Legislação Tributária", "Sexta", "21h04", "Osiel Borges de Souza"]
         ];
 
         function loadSchedules() {
             const table = document.getElementById("scheduleTable");
-            cronogramas.forEach((cronograma, index) => {
+            cronogramas.forEach((cronograma) => {
                 let row = table.insertRow();
                 row.insertCell(0).innerText = cronograma[0];
                 row.insertCell(1).innerText = cronograma[1];
                 row.insertCell(2).innerText = cronograma[2];
-                let actionCell = row.insertCell(3);
+                row.insertCell(3).innerText = cronograma[3];
+                let actionCell = row.insertCell(4);
                 let btn = document.createElement("button");
                 btn.innerText = "Ver Mais";
                 btn.onclick = () => filterBySubject(cronograma[0]);
@@ -77,8 +61,7 @@
 
         function filterSchedules() {
             const filter = document.getElementById("searchInput").value.toLowerCase();
-            const table = document.getElementById("scheduleTable");
-            const rows = table.getElementsByTagName("tr");
+            const rows = document.getElementById("scheduleTable").getElementsByTagName("tr");
             
             for (let i = 1; i < rows.length; i++) {
                 let cells = rows[i].getElementsByTagName("td");
@@ -94,16 +77,11 @@
         }
 
         function filterBySubject(subject) {
-            const table = document.getElementById("scheduleTable");
-            const rows = table.getElementsByTagName("tr");
+            const rows = document.getElementById("scheduleTable").getElementsByTagName("tr");
             
             for (let i = 1; i < rows.length; i++) {
                 let cell = rows[i].getElementsByTagName("td")[0];
-                if (cell.innerText === subject) {
-                    rows[i].style.display = "";
-                } else {
-                    rows[i].style.display = "none";
-                }
+                rows[i].style.display = cell.innerText === subject ? "" : "none";
             }
         }
 
