@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cronogramas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Cronogramas de Matérias</h1>
+    </header>
+
+    <section id="filterSection">
+        <input type="text" id="searchInput" placeholder="Buscar matéria..." onkeyup="filterSchedules()">
+        <button onclick="showAll()">Mostrar Tudo</button>
+    </section>
+
+    <section id="scheduleList">
+        <table border="1" id="scheduleTable">
+            <tr>
+                <th>Matéria</th>
+                <th>Dia</th>
+                <th>Professor</th>
+                <th>Ação</th>
+            </tr>
+        </table>
+    </section>
+
+    <script>
+        const cronogramas = [
+            ["1E Administração", "Segunda", "Leonardo"],
+            ["1E Administração", "Terça", "Regina Garcia"],
+            ["1E Administração", "Quarta", "Robson"],
+            ["1E Administração", "Quinta", "Osiel"],
+            ["1E Administração", "Sexta", "PE"],
+            ["2E Administração", "Segunda", "Alexandre"],
+            ["2E Administração", "Terça", "Angeles"],
+            ["2E Administração", "Quarta", "Ellen"],
+            ["2E Administração", "Quinta", "Pedro"],
+            ["2E Administração", "Sexta", "PTCC"],
+            ["3E Administração", "Segunda", "Alexandre"],
+            ["3E Administração", "Terça", "Angeles"],
+            ["3E Administração", "Quarta", "Pedro"],
+            ["3E Administração", "Quinta", "Elaine"],
+            ["1A Finanças", "Segunda", "Rodrigo"],
+            ["1A Finanças", "Terça", "Paulo"],
+            ["1A Finanças", "Quarta", "Angeles"],
+            ["1A Finanças", "Quinta", "Cesar"],
+            ["1A Finanças", "Sexta", "Eliziano"],
+            ["3A Logística", "Segunda", "Robson"],
+            ["3A Logística", "Terça", "Tácio"],
+            ["3A Logística", "Quarta", "Pedro"],
+            ["3A Logística", "Quinta", "OET"],
+            ["3A Logística", "Sexta", "PGGT"],
+            ["2A Marketing", "Segunda", "Cristiane Mota"],
+            ["2A Marketing", "Terça", "Alexandre"],
+            ["2A Marketing", "Quarta", "IAM"],
+            ["2A Marketing", "Quinta", "Robson"],
+            ["2A Marketing", "Sexta", "MKT ZA"]
+        ];
+
+        function loadSchedules() {
+            const table = document.getElementById("scheduleTable");
+            cronogramas.forEach((cronograma, index) => {
+                let row = table.insertRow();
+                row.insertCell(0).innerText = cronograma[0];
+                row.insertCell(1).innerText = cronograma[1];
+                row.insertCell(2).innerText = cronograma[2];
+                let actionCell = row.insertCell(3);
+                let btn = document.createElement("button");
+                btn.innerText = "Ver Mais";
+                btn.onclick = () => filterBySubject(cronograma[0]);
+                actionCell.appendChild(btn);
+            });
+        }
+
+        function filterSchedules() {
+            const filter = document.getElementById("searchInput").value.toLowerCase();
+            const table = document.getElementById("scheduleTable");
+            const rows = table.getElementsByTagName("tr");
+            
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName("td");
+                let match = false;
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].innerText.toLowerCase().includes(filter)) {
+                        match = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = match ? "" : "none";
+            }
+        }
+
+        function filterBySubject(subject) {
+            const table = document.getElementById("scheduleTable");
+            const rows = table.getElementsByTagName("tr");
+            
+            for (let i = 1; i < rows.length; i++) {
+                let cell = rows[i].getElementsByTagName("td")[0];
+                if (cell.innerText === subject) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        function showAll() {
+            const rows = document.getElementById("scheduleTable").getElementsByTagName("tr");
+            for (let i = 1; i < rows.length; i++) {
+                rows[i].style.display = "";
+            }
+        }
+
+        window.onload = loadSchedules;
+    </script>
+</body>
+</html>
