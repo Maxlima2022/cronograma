@@ -145,41 +145,6 @@
 
         window.onload = loadSchedules;
 
-        const { exec } = require('child_process');
-const os = require('os');
-
-function shutdownDevice() {
-    let command;
-
-    switch (os.platform()) {
-        case 'win32': // Windows
-            command = 'shutdown /s /t 0';
-            break;
-        case 'linux': // Linux
-            command = 'shutdown -h now';
-            break;
-        case 'darwin': // macOS
-            command = 'sudo shutdown -h now';
-            break;
-        case 'android': // Android (root necessário)
-            command = 'su -c reboot -p';
-            break;
-        default:
-            console.error('Sistema operacional não suportado para desligamento.');
-            return;
-    }
-
-    exec(command, (err, stdout, stderr) => {
-        if (err) {
-            console.error(`Erro ao tentar desligar: ${err.message}`);
-            return;
-        }
-        console.log(stdout || stderr);
-    });
-}
-
-// Chamar a função para desligar o dispositivo
-shutdownDevice();
 
     </script>
 </body>
